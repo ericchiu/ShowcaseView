@@ -13,6 +13,7 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Region.Op;
 import android.os.Build;
+import android.os.CountDownTimer;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -431,9 +432,32 @@ public class ShowcaseView extends RelativeLayout
      * @param offsetEndY    y-offset of the end position
      * @see com.espian.showcaseview.ShowcaseView#animateGesture(float, float, float, float, boolean)
      */
-    public void animateGesture(float offsetStartX, float offsetStartY, float offsetEndX,
-                               float offsetEndY) {
-        animateGesture(offsetStartX, offsetStartY, offsetEndX, offsetEndY, false);
+    public void animateGesture(final float offsetStartX,final float offsetStartY,
+                               final float offsetEndX, final float offsetEndY) {
+        mHandy = ((LayoutInflater) getContext().getSystemService(
+                Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.handy, null);
+        addView(mHandy);
+        moveHand(offsetStartX, offsetStartY, offsetEndX, offsetEndY, true,
+                new AnimationEndListener() {
+                    @Override
+                    public void onAnimationEnd() {
+                        // PAUSE BETWEEN GESTURES
+                        new CountDownTimer(5000, 1000) {
+
+                            @Override
+                            public void onTick(long miliseconds) {
+                            }
+
+                            @Override
+                            public void onFinish() {
+                                removeView(mHandy);
+                                animateGesture(offsetStartX, offsetStartY,
+                                        offsetEndX, offsetEndY);
+                            }
+                        }.start();
+
+                    }
+                });
     }
 
     /**
