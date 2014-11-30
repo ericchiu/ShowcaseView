@@ -18,7 +18,7 @@ import android.text.style.TextAppearanceSpan;
  */
 public class TextDrawerImpl implements TextDrawer {
 	
-	private static final int PADDING = 24;
+	private static final int PADDING = 12;
 	private static final int ACTIONBAR_PADDING = 66;
 
     private final TextPaint mPaintTitle;
