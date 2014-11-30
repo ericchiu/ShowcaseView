@@ -507,7 +507,6 @@ public class ShowcaseView extends RelativeLayout
     }
 
     public void hide() {
-        Log.e("show","hide");
         mEventListener.onShowcaseViewHide(this);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB
